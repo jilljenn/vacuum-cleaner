@@ -1,5 +1,23 @@
 # Vacuum cleaner
 
+## Install
+
+It should be in Python 3. Please try `pip3` if `pip` does not work.
+
+On Ubuntu you can make a virtual environment:
+
+    python3 -m venv venv
+    source venv/bin/activate
+    pip install -r requirements.txt  # Install gym and euclid3
+
+Anywhere:
+
+    pip install gym euclid3
+    python cart.py  # To test the Gym environment
+    python bounce.py  # Press A to randomly change the direction of the ball
+
+## Useful resources
+
 - [Environments in classic control or Box2D](https://gym.openai.com/envs/#classic_control)
 
 Rendering involves either:
