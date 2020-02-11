@@ -5,6 +5,7 @@ state = env.reset()
 import numpy as np
 from autograd import grad
 import sys
+import random
 
 GAMMA = 0.99
 ALPHA = 0.1
@@ -12,10 +13,10 @@ LAMBDA = 1
 NB_STEPS = 5
 
 # (Just debug) Plot the rewards
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 def q(state, parameters):
-    return np.matmul(parameters, state)
+    return np.dot(parameters, state)
 
 # print(q(np.random.random(2), W))
 # sys.exit(0)
@@ -24,18 +25,18 @@ def loss(parameters, new_state, reward, old_value):
     return ALPHA * (reward + GAMMA * max(q(new_state, parameters)) - old_value)
 
 def run_episode(env):
-    parameters = np.random.random((3, 2))
-    for _ in range(10):
+    parameters = np.random.random((2, 2))
+    for _ in range(50):
         print(_)
         state = env.reset()
         # totalreward = 0
-        for _ in range(1000):
+        for _ in range(100):
             # Choose A from S using policy derived from Q
-            action = np.argmax(q(state, parameters))
+            action = np.argmax(q(state, parameters)) if random.random() < 0.9 else random.choice([0, 1])
             # print(action)
             
             # Take action A, observe R, S'
-            new_state, reward, done, info = env.step(action)
+            new_state, reward, done, info = env.step(2 if action == 1 else action)
             # print('all', q(state, parameters))
             # print('that', q(state, parameters)[action])
             old_value = q(state, parameters)[action]
@@ -92,6 +93,6 @@ for _ in range(500):
     
     # action = 1
     print(action)
-    state, reward, done, info = env.step(action)
+    state, reward, done, info = env.step(2 if action == 1 else action)
 
 env.close()
