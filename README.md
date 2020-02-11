@@ -13,7 +13,7 @@ On Ubuntu you can make a virtual environment:
 Anywhere:
 
     pip install gym euclid3
-    python cart.py  # To test the Gym environment
+    python start.py  # To test the Gym environment
     python bounce.py  # Press A to randomly change the direction of the ball
 
 ## Useful resources
