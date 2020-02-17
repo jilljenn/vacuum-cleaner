@@ -1,2 +1,4 @@
 gym
 euclid3
+numpy
+matplotlib
