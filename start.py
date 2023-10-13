@@ -5,15 +5,15 @@ JJ Vie, 2020
 # pylint: disable=redefined-outer-name,import-error,
 # pylint: disable=pointless-string-statement,no-member,unused-variable
 import random
-import gym
+import gymnasium as gym
 import numpy as np
 import matplotlib.pyplot as plt  # For plotting actions
 from tiles3 import IHT, tiles
+from tqdm import tqdm
 # from autograd import grad
 
 env = gym.make("MountainCar-v0")
-# env = gym.make("CartPole-v1")
-actions = range(3)
+actions = range(2)
 state = env.reset()
 
 GAMMA = 0.99
@@ -48,10 +48,10 @@ def run_episode(env):
     parameters = np.random.random(4096) * 2 - 1
     all_states = []
     length = {x: [] for x in range(NB_EPISODES)}
-    for n in range(NB_EPISODES):
+    for n in tqdm(range(NB_EPISODES)):
         if n:
             print(n, np.mean(length[n - 1]))
-        state = env.reset()
+        state, _ = env.reset()
         sarsa = [state]
 
         # Choose A from S using eps-greedy policy derived from Q
@@ -65,7 +65,7 @@ def run_episode(env):
                 env.render()
 
             # Take action A, observe R, S'
-            new_state, reward, done, info = env.step(action)
+            new_state, reward, done, truncated, info = env.step(action)
             all_states.append(new_state)
 
             # If state S' is terminal
@@ -153,9 +153,10 @@ for _ in range(500):
         if reward == 200:
             break"""
 
+env = gym.make("MountainCar-v0", render_mode='human')
 
-state = env.reset()
-for _ in range(500):
+state, _ = env.reset()
+for t in range(500):
     env.render()
     # Random
     # action = env.action_space.sample()  # pick a random action
@@ -171,9 +172,9 @@ for _ in range(500):
                          for action in actions]) if random.random() < EPS
               else random.choice(actions))
 
-    state, reward, done, info = env.step(action)
+    state, reward, done, truncated, info = env.step(action)
     if done:
-        print('hooray', info)
+        print('stopped at time', t)
         break
 
 env.close()
