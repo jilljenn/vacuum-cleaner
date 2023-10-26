@@ -6,15 +6,19 @@ It should be in Python 3. Please try `pip3` if `pip` does not work.
 
 On Ubuntu you can make a virtual environment:
 
-    python3 -m venv venv
-    source venv/bin/activate
-    pip install -r requirements.txt  # Install gym and euclid3
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt  # Install gym and euclid3
+```
 
 Anywhere:
 
-    pip install gym euclid3
-    python start.py  # To test the Gym environment
-    python bounce.py  # Press A to randomly change the direction of the ball
+```bash
+pip install gym euclid3
+python start.py  # To test the Gym environment
+python bounce.py  # Press A to randomly change the direction of the ball
+```
 
 ## Useful resources
 
